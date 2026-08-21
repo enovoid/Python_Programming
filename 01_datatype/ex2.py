@@ -29,4 +29,28 @@ print(b, type(b))
 
 # 실수형의 표현 범위
 # 부동 소숫점 저장 방식 : 64비트 = 부호(1비트) + 지수부(11비트) + 가수부(52비트)
-#
+# 실수의 오차 발생
+
+import sys
+
+print(sys.float_info.min)
+print(sys.float_info.max)
+
+print(-sys.float_info.min)
+print(-sys.float_info.max)
+
+a = 1.7e308
+b = 1.8e308
+print(a, b)
+
+# 실수의 오차
+print(0.1 + 0.2 == 0.3)
+print(f"{0.1:.20f}")
+print(f"{0.2:.20f}")
+print(f"{0.3:.20f}")
+
+# 형변환
+print(float(100))
+print(int(3.14))
+print(float("3.14"))
+print(int("123"))
