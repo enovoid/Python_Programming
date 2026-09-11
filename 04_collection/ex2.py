@@ -1,63 +1,203 @@
-# 리스트 기초
+# 리스트 심화
 
 # ===========================================================
-#  컬렉션 자료형: (  ), (  ), (  ), (  )
+#  리스트에서 제공하는 메소드
 # ===========================================================
 
+langs = ["c", "c++", "java", "python"]
+
+langs.append("go")
+print(langs)
+
+langs.insert(2, "c#")
+print(langs)
+
+langs[3] = "javascript"
+print(langs)
+
+langs.remove("c++")
+print(langs)
+
+langs.pop(1)  # 인덱스 생략
+print(langs)
+
+langs.pop()
+print(langs)
+
+print(langs.index("python"))
+
+langs.reverse()
+print(langs)
+
+langs.clear()
+print(langs)
+
+# 리스트 복사
+ori = [1, 2, 3]
+
+result = ori.copy()
+print(result)
+result.append(10)  # 원본은 바뀌지 않음
+print(ori, result)
+
+# 얕은 복사(shallow copy) vs 깊은 복사(deep copy)
+ori = [[1, 2], [3, 4]]
+
+result2 = ori.copy()
+result2[0].append(100)
+
+print(ori, result2)
+
+
+# 깊은 복사를 하려면?
+import copy
+
+result2 = copy.deepcopy(ori)
+
+result2[0].append(1000)
+
+print(ori, result2)
+
+
 # ===========================================================
-#  리스트 (list): 여러 객체를 순서가 있는 컬렉션으로 묶어 저장하는 변경 가능한 자료형
-#  리스트 특징
-#  1. (  )
-#  2. (  )
-#  3. (  )
-#  4. (  )
+#  그 외
 # ===========================================================
 
-# 리스트 생성
+# 중첩리스트
+nested_list = [1, ["a", ["x", "y"], "b"], 2]
+
+print(nested_list[1][1][0])  # x 출력하기
+print(nested_list[1][2])  # b 출력하기
+print(nested_list[2])  # 2 출력하기
+
+# 리스트 언패킹
+num = [1, 2, 3, 4]
+
+print(*num)
+
+a, b, c, d = num
+print(a, b, c, d)
+a, *b, c = num  # 확장 언패킹
+print(a, b, c)
+
+num2 = [5, 6]
+print(num + num2)  # 리스트 합치기
+
+print([*num, *num2])  # 리스트 합치기2
+
+# zip함수: 반복 가능(iterable)한 여러 객체를 인자로 받아
+# 동일한 인덱스에 있는 원소들끼리 튜플로 묶어주는 파이썬 내장 함수
+subjects = ["국어", "수학", "영어"]
+scores = [80, 90, 95]
+
+a, b, c = zip(subjects, scores, strict=True)
+print(a, b, c)
+
+for subject, score in zip(subjects, scores):
+    print(f"{subject}: {score}점")
+
+# [X] : x 자체를 원소 하나로 해서 리스트에 넣음
+print([zip(subjects, scores)])
+
+# list(x)는 x를 순회해서 리스트에 넣음
+print(list(zip(subjects, scores)))
+
+print(["python"])
+print(list("python"))
 
 
 # ===========================================================
-# 1. 리스트는 mutable하다. (변경 가능)
+#  List Comprehension
+#  for문을 이용하여 각 원소에 식을 적용하여 리스트를 만드는 방법
 # ===========================================================
 
+# 1 ~ 10의 제곱수 리스트 만들기
+result = []
+for x in range(1, 11):
+    result.append(x**2)
+print(result)
 
-# ===========================================================
-# 2. 리스트는 iterable하다. (반복 가능)
-# ===========================================================
-
-# 리스트 순회
-
-
-# ===========================================================
-# 3. 리스트는 sequence 자료형이다. (인덱싱, 슬라이싱 가능)
-# ===========================================================
-
-# 인덱싱
+result = [x**2 for x in range(1, 11)]
+print(result)
 
 
-# 슬라이싱
+# 1 ~ 10 중 짝수의 제곱수로 된 리스트 만들기 (필터링 if문 추가)
+result = [x**2 for x in range(1, 11) if x % 2 == 0]
+print(result)
 
 
-# ===========================================================
-# 4. 리스트는 중복을 허용한다. (같은 값을 여러번 담을 수 있음)
-# ===========================================================
+# 1 ~ 10 중 짝수면 "짝", 홀수면 "홀" 출력하기
+result = ["짝" if x % 2 == 0 else "홀" for x in range(1, 11)]
+print(result)
 
 
-# ===========================================================
-#  파이썬 내장 함수
-# ===========================================================
+# 각 이름의 길이로 이루어진 리스트 만들기
+names = ["pororo", "crong", "poby", "eddy"]
+# [6, 5, 4, 4]
+result = [len(n) for n in names]
+print(result)
 
-a = [3, 4, 1, 5, 2]
-
-
-# 리스트 합치기
-
-
-# "+" 연산은 문자열과 동일하게 새로운 리스트 객체를 만듦
-# 원본을 바꾸려면 리스트 메소드 사용하기
+# 길이가 5 이상인 이름만 뽑기
+result = [n for n in names if len(n) >= 5]
+print(result)
 
 
-# 리스트 반복하기
+# 중첩 for문도 가능
+# x = 0 1 2
+# y = 0 1 2
+# x * y로 이루어진 리스트 만들기
+result = [x * y for x in range(3) for y in range(3)]
+print(result)
 
 
-# 멤버십 연산자
+# =========================================================
+#  🔥 실습 문제
+# =========================================================
+
+# 1️⃣ 60점 이상인 점수만 뽑기
+scores = [85, 42, 73, 55, 90, 68, 35, 100]
+
+result = [score for score in scores if score >= 60]
+print(result)  # ✅ [85, 73, 90, 68, 100] 출력
+
+
+# 2️⃣ 60점 이상인 경우 "합격", 60점 미만은 "불합격"으로 처리
+result = ["합격" if score >= 60 else "불합격" for score in scores]
+print(
+    result
+)  # ✅ ['합격', '불합격', '합격', '불합격', '합격', '합격', '불합격', '합격']
+
+
+# 3️⃣ 1 ~ 100 중 3 또는 5의 배수의 합 구하기 (sum() 함수 이용)
+result = (i for i in range(1, 101) if i % 3 == 0 or i % 5 == 0)
+print(sum(result))  # ✅ 2418 출력
+
+
+# 4️⃣ n을 포함하고 있는 단어만 뽑기
+words = ["apple", "banana", "kiwi", "mango"]
+
+result = [word for word in words if "n" in word]
+print(result)  # ✅ ['banana', 'mango'] 출력
+
+
+# 5️⃣ 세 학생의 3과목 점수표에서 과목별 평균 구하기
+scores = [
+    [92, 80, 70],  # 학생 1
+    [96, 90, 80],  # 학생 2
+    [82, 70, 60],  # 학생 3
+]
+
+std1 = scores[0]
+std2 = scores[1]
+std3 = scores[2]
+
+result = [sum(score) / len(score) for score in zip(std1, std2, std3)]
+result = [sum(score) / len(score) for score in zip(*scores)]
+
+print(result)  # ✅ [90.0, 80.0, 70.0]
+
+# 은행가 반올림 -> 오차를 상쇄하기 위해서
+print(round(0.5))
+print(round(1.5))
+print(round(2.5))
+print(round(3.5))
