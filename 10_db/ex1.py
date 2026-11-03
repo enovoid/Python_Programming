@@ -68,7 +68,6 @@ class Student:
         self.conn.commit()  # 변경사항 확정 (INSERT/UPDATE/DELETE 후 필수)
         print("INSERT 완료")
 
-
     # 전체 조회
     def show_all(self):
         self.cur.execute("SELECT * FROM student")
